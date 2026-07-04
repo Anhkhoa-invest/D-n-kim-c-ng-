@@ -1,4 +1,4 @@
-import axios from "axios";
+import HttpClient from "./HttpClient";
 
 export interface MarketData {
   symbol: string;
