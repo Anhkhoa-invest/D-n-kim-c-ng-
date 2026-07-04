@@ -1,31 +1,36 @@
+import MarketConfig from "../config/MarketConfig";
 import HttpClient from "./HttpClient";
 import { MarketData } from "../models/MarketData";
 
 class VietnamMarketApi {
   async getStockPrice(symbol: string): Promise<MarketData> {
     try {
-      const response = await HttpClient.get(`/stock/${symbol}`);
+      const response = await HttpClient.get(
+  `${MarketConfig.vietnam.stockEndpoint}?q=code:${symbol}`
+);
 
       console.log(response.data);
-
+const stock = response.data.data?.[0];
       return {
   symbol: symbol.toUpperCase(),
-  name: response.data.name || "",
+ name: stock?.companyName || "",
 
-  price: response.data.price || 0,
-  open: response.data.open || 0,
-  high: response.data.high || 0,
-  low: response.data.low || 0,
-  previousClose: response.data.previousClose || 0,
+price: stock?.price || 0,
+open: stock?.open || 0,
+high: stock?.high || 0,
+low: stock?.low || 0,
+previousClose: stock?.priorClosePrice || 0,
 
-  change: response.data.change || 0,
-  percentChange: response.data.percentChange || 0,
+change: stock?.change || 0,
+percentChange: stock?.pctChange || 0,
 
-  volume: response.data.volume || 0,
-  value: response.data.value || 0,
+volume: stock?.nmVolume || 0,
+value: stock?.nmValue || 0,
 
-  market: response.data.market || "VN",
-  updatedAt: new Date(),
+market: stock?.exchange || "VN",
+updatedAt: new Date(),
+
+
 };
 
     } catch (error) {

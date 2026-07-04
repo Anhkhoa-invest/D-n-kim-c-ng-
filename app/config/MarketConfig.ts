@@ -1,9 +1,14 @@
-export const MarketConfig = {
+const MarketConfig = {
   vietnam: {
-    baseUrl: "",
+    baseUrl: "https://api-finfo.vndirect.com.vn",
+    stockEndpoint: "/v4/stock_prices",
     timeout: 10000,
-    retry: 3,
+  },
+
+  cache: {
+    ttl: 30000,
   },
 };
 
 export default MarketConfig;
+

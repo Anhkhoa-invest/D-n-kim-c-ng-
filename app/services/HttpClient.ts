@@ -1,10 +1,12 @@
 import axios from "axios";
-import ApiConfig from "../config/ApiConfig";
+import MarketConfig from "../config/MarketConfig";
 
 const HttpClient = axios.create({
-  baseURL: ApiConfig.vietnam.baseUrl,
-  timeout: ApiConfig.vietnam.timeout,
+  baseURL: MarketConfig.vietnam.baseUrl,
+  timeout: MarketConfig.vietnam.timeout,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 export default HttpClient;
-
