@@ -72,7 +72,7 @@ const { data, loading } = useMarket("HHV");
             }}
           />
 
-          <SummaryCard stocks={stocks} />
+          <SummaryCard  />
 
           <div
             style={{

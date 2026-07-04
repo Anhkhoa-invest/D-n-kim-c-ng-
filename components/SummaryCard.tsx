@@ -1,78 +1,68 @@
-"use client";
+import { useEffect, useState } from "react";
+import MarketService from "../app/services/MarketService";
 
-import { calculatePortfolio } from "../lib/calculatePortfolio";
+export default function SummaryCard() {
+  const [stock, setStock] = useState<any>(null);
 
-export default function SummaryCard({ stocks }: any) {
-  const result =
-  calculatePortfolio(stocks ?? []) ?? {
-    totalCost: 0,
-    totalValue: 0,
-    profit: 0,
-    percent: 0,
-  };
+  useEffect(() => {
+    async function load() {
+      try {
+        const data = await MarketService.getStockPrice("VNM");
+        setStock(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    load();
+  }, []);
+if (!stock) {
+    return (
+      <div
+        style={{
+          background: "#fff",
+          padding: 20,
+          borderRadius: 12,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+        }}
+      >
+        Đang tải dữ liệu...
+      </div>
+    );
+  }
 
   return (
     <div
       style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(4,1fr)",
-        gap: "15px",
-        margin: "20px 0",
+        background: "#fff",
+        padding: 20,
+        borderRadius: 12,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
       }}
     >
-      <div
-        style={{
-          background: "#fff",
-          padding: "20px",
-          borderRadius: "12px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-        }}
-      >
-        <h3>💰 Tổng vốn</h3>
-        <h2>{(result.totalCost ?? 0).toFixed(0)} đ</h2>
-      </div>
+<h3>📈 Thị trường Việt Nam</h3>
 
-      <div
-        style={{
-          background: "#fff",
-          padding: "20px",
-          borderRadius: "12px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-        }}
-      >
-        <h3>📈 Giá trị</h3>
-        <h2>{(result.totalValue ?? 0).toFixed(0)} đ</h2>
-      </div>
+      <h2>{stock.symbol}</h2>
 
-      <div
-        style={{
-          background: "#fff",
-          padding: "20px",
-          borderRadius: "12px",
-          boxShadow: "0 2px 10px rgba(0,0.0,0,0.08)",
-        }}
-      >
-        <h3>💵 Lãi/Lỗ</h3>
-        <h2
-          style={{
-            color: result.profit >= 0 ? "green" : "red",
-          }}
-        >
-          {(result.profit ?? 0).toFixed(0)} đ
-        </h2>
-      </div>
+      <p>
+        <strong>{stock.name}</strong>
+      </p>
 
-      <div
-        style={{
-          background: "#fff",
-          padding: "20px",
-          borderRadius: "12px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-        }}
-      >
-        <h3>📊 Hiệu suất</h3>
-        <h2>{(result.percent ?? 0).toFixed(2)}%</h2>
-      </div>
-    </div>
+      <p>💰 Giá: {stock.price.toLocaleString()} VNĐ</p>
+
+      <p>
+        📊 Thay đổi: {stock.change} ({stock.percentChange}%)
+      </p>
+
+      <p>📦 Khối lượng: {stock.volume.toLocaleString()}</p>
+
+      <p>💵 Giá trị: {stock.value.toLocaleString()}</p>
+
+      <p>🏛 Sàn: {stock.market}</p>
+
+      <p>
+        🕒 Cập nhật: {new Date(stock.updatedAt).toLocaleTimeString()}
+      </p>
+</div>
   );
 }
