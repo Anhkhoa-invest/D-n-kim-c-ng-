@@ -3,6 +3,13 @@ export default function StockList({
   onDelete,
   onEdit,
 }: any) {
+  const logos: Record<string, string> = {
+  MBB: "🏦",
+  HHV: "🛣️",
+  FPT: "💻",
+  VCB: "💚",
+  ACB: "💙",
+};
   return (
     <div
       style={{
@@ -34,6 +41,7 @@ export default function StockList({
             <th style={{ padding: "10px" }}>Lãi/Lỗ</th>
             <th style={{ padding: "10px" }}>% Lãi/Lỗ</th>
             <th style={{ padding: "10px" }}>Thao tác</th>
+            <th style={{ padding: "10px" }}>Điểm AI</th>
           </tr>
         </thead>
 
@@ -49,7 +57,7 @@ export default function StockList({
 
             return (
               <tr key={stock.code + index}>
-                <td style={{ padding: "10px" }}>{stock.code}</td>
+                <td style={{ padding: "10px" }}>{logos[stock.code] || "📈"} {stock.code}</td>
 
                 <td style={{ padding: "10px" }}>
                   {stock.quantity}
