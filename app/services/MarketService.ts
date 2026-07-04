@@ -1,10 +1,9 @@
-import MarketRepository from "../repositories/MarketRepository";
+import VietnamMarketApi from "./VietnamMarketApi";
 
 class MarketService {
   async getStockPrice(symbol: string) {
-    return await MarketRepository.getStockPrice(symbol);
+    return await VietnamMarketApi.getStockPrice(symbol);
   }
 }
 
 export default new MarketService();
-
