@@ -1,8 +1,8 @@
-import VietnamMarketApi from "./VietnamMarketApi";
+import MarketEngine from "./MarketEngine";
 
 class MarketService {
   async getStockPrice(symbol: string) {
-    return await VietnamMarketApi.getStockPrice(symbol);
+    return await MarketEngine.getStockPrice(symbol);
   }
 }
 
