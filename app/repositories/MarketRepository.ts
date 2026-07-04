@@ -1,8 +1,8 @@
-import VietnamMarketProvider from "../providers/VietnamMarketProvider";
+import MarketEngine from "../services/MarketEngine";
 
-export class MarketRepository {
+class MarketRepository {
   async getStockPrice(symbol: string) {
-    return await VietnamMarketProvider.getStockPrice(symbol);
+    return await MarketEngine.getStockPrice(symbol);
   }
 }
 

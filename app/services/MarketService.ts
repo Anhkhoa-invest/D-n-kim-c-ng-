@@ -1,8 +1,8 @@
-import MarketEngine from "./MarketEngine";
+import MarketRepository from "../repositories/MarketRepository";
 
 class MarketService {
   async getStockPrice(symbol: string) {
-    return await MarketEngine.getStockPrice(symbol);
+    return await MarketRepository.getStockPrice(symbol);
   }
 }
 
