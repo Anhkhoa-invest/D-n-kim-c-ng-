@@ -1,4 +1,28 @@
-export default function AIAssistant() {
+import { useState } from "react";
+import { AIDecisionService } from "../app/services/AIDecisionService";
+import { AIExplainService } from "../app/services/AIExplainService";
+import { AIService } from "../app/services/AIService";
+import { OpenAIService } from "../app/services/OpenAIService";
+
+type Props = {
+  code?: string;
+};
+
+export default function AIAssistant({ code = "MBB" }: Props) {
+  const ai = AIService.analyze(code);
+  const decision = AIDecisionService.decide(ai.total);
+  const explanation = AIExplainService.explain(ai.total);
+
+  const [answer, setAnswer] = useState("");
+
+  const askAI = async () => {
+    const res = await OpenAIService.ask(
+      `Phân tích cổ phiếu ${code}`
+    );
+
+    setAnswer(res.answer);
+  };
+
   return (
     <div
       style={{
@@ -21,16 +45,58 @@ export default function AIAssistant() {
       >
         <b>Bạn:</b>
 
-        <p>HHV hôm nay thế nào?</p>
+        <p>Điểm AI: {ai.total}</p>
+        <p>Tài chính: {ai.financial}</p>
+        <p>Tăng trưởng: {ai.growth}</p>
+        <p>Định giá: {ai.valuation}</p>
+        <p>Rủi ro: {ai.risk}</p>
 
         <hr />
 
-        <b>AI:</b>
+        <p>{ai.comment}</p>
+
+        <hr />
 
         <p>
-          HHV đang trong xu hướng tích cực. Dòng tiền ổn định, phù hợp theo dõi
-          cho đầu tư trung hạn.
+          <b>Khuyến nghị:</b> {decision.recommendation}
         </p>
+
+        <p>
+          <b>Độ tin cậy:</b> {decision.confidence}%
+        </p>
+
+        <hr />
+
+        <p>{explanation}</p>
+
+        <button
+          onClick={askAI}
+          style={{
+            marginTop: 20,
+            padding: "10px 20px",
+            borderRadius: 8,
+            border: "none",
+            background: "#2563eb",
+            color: "white",
+            cursor: "pointer",
+          }}
+        >
+          🚀 Phân tích bằng AI
+        </button>
+
+        {answer && (
+          <div
+            style={{
+              marginTop: 20,
+              background: "#eef6ff",
+              padding: 15,
+              borderRadius: 10,
+            }}
+          >
+            <b>Kim Cương AI:</b>
+            <p>{answer}</p>
+          </div>
+        )}
       </div>
     </div>
   );

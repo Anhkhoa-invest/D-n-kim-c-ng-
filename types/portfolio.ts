@@ -3,4 +3,5 @@ export interface PortfolioItem {
   quantity: number;
   buyPrice: number;
   currentPrice: number;
+  aiScore?: number;
 }

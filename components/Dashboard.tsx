@@ -1,14 +1,16 @@
 "use client";
+import { useDashboardRealtime } from "../app/hooks/useDashboardRealtime";
+
+import { RealtimeEngine } from "../app/services/RealtimeEngine";
+import AIAnalysisCard from "./AIAnalysisCard";
+import { InvestmentDecisionEngine } from "../app/ai/engines/InvestmentDecisionEngine";
+import NotificationCard from "./NotificationCard";
 import { useMarket } from "../app/hooks/useMarket";
-
+import MarketService from "../app/services/MarketService";
 import WatchlistCard from "./WatchlistCard";
-
 import { PortfolioService } from "../app/services/PortfolioService";
-
 import { useState, useEffect } from "react";
-
 import { portfolio } from "../data/market";
-
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import SummaryCard from "./SummaryCard";
@@ -19,19 +21,116 @@ import StockList from "./StockList";
 import AddStockButton from "./AddStockButton";
 import AddStockForm from "./AddStockForm";
 import AIAssistant from "./AIAssistant";
+import { aiRegistry } from "../app/ai/AIBootstrap";
+import { useRealtimeMarket } from "../app/hooks/useRealtimeMarket";
+
 
 
 export default function Dashboard() {
+  const [stocks, setStocks] = useState(portfolio);
+  const quotes = useRealtimeMarket();
+console.log("Realtime Quotes:", quotes);
 
- const [stocks, setStocks] = useState(() =>
-  PortfolioService.loadPortfolio(portfolio)
-);
-const { data, loading } = useMarket("HHV");
 
   const [search, setSearch] = useState("");
+  const [analysis, setAnalysis] = useState<any>(null);
   const [showForm, setShowForm] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
+  useMarket("HHV");
+
+  // Load Portfolio
+  useEffect(() => {
+    setStocks(PortfolioService.loadPortfolio(portfolio));
+  }, []);
+
+  // AI Analysis
+  useEffect(() => {
+    const loadAnalysis = async () => {
+      const engine = new InvestmentDecisionEngine();
+
+      const result = await engine.analyze({
+        symbol: "MBB",
+        fundamental: 90,
+        technical: 88,
+        risk: 20,
+        sentiment: 85,
+      });
+
+      setAnalysis(result);
+    };
+
+    loadAnalysis();
+  }, []);
+
+  // Refresh Market
+  useEffect(() => {
+    const refresh = async () => {
+      const open = await MarketService.isMarketOpen();
+
+      if (!open) return;
+
+      // Sprint sau sẽ cập nhật dữ liệu thật
+    };
+
+    refresh();
+
+    const timer = setInterval(refresh, 30000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Realtime
+  useEffect(() => {
+    const symbols = ["VNINDEX", "MBB", "HHV"];
+RealtimeEngine.start((prices: unknown[]) => {
+    console.log("Realtime Engine:", prices);
+});
+
+   
+
+    return () => {
+      RealtimeEngine.stop();
+    };
+  }, []);
+
+  // Save Portfolio
+  useEffect(() => {
+    PortfolioService.savePortfolio(stocks);
+  }, [stocks]);
+
+
+useEffect(() => {
+    const refresh = async () => {
+        const open = await MarketService.isMarketOpen();
+
+        if (!open) return;
+
+        // Sprint sau sẽ cập nhật dữ liệu thật tại đây
+    };
+
+    refresh();
+
+    const timer = setInterval(refresh, 30000);
+
+    return () => clearInterval(timer);
+}, []);
+
+
+useEffect(() => {
+  const symbols = ["VNINDEX", "MBB", "HHV"];
+
+ RealtimeEngine.start((prices: unknown[]) => {
+    console.log("Realtime Engine:", prices);
+});
+
+
+  return () => {
+    RealtimeEngine.stop();
+  };
+}, []);
+
+  
   useEffect(() => {
   PortfolioService.savePortfolio(stocks);
 }, [stocks]);
@@ -72,7 +171,8 @@ const { data, loading } = useMarket("HHV");
             }}
           />
 
-          <SummaryCard  />
+          <SummaryCard />
+
 
           <div
             style={{
@@ -86,18 +186,26 @@ const { data, loading } = useMarket("HHV");
             <PortfolioCard stocks={stocks} />
             <Top5Card />
             <WatchlistCard />
+<NotificationCard />
+<AIAnalysisCard
+    
 
+
+  symbol="MBB"
+  price={22.7}
+  roe={95}
+  growth={93}
+  pe={8}
+  debt={4}
+/>
           </div>
-
           <AIAssistant />
-
           <AddStockButton
             onClick={() => {
               setEditingIndex(null);
               setShowForm(true);
             }}
           />
-
           {showForm && (
             <AddStockForm
               editingStock={
@@ -112,12 +220,10 @@ const { data, loading } = useMarket("HHV");
                 } else {
                   setStocks([...stocks, newStock]);
                 }
-
                 setShowForm(false);
               }}
             />
           )}
-
           <StockList
             stocks={stocks.filter((stock: any) =>
               stock.code.toLowerCase().includes(search.toLowerCase())

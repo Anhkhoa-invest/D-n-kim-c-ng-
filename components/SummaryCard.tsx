@@ -54,9 +54,9 @@ if (!stock) {
         📊 Thay đổi: {stock.change} ({stock.percentChange}%)
       </p>
 
-      <p>📦 Khối lượng: {stock.volume.toLocaleString()}</p>
+      <p>📦 Khối lượng: {(stock.volume?? 0).toLocaleString()}</p>
 
-      <p>💵 Giá trị: {stock.value.toLocaleString()}</p>
+      <p>💵 Giá trị: {(stock.value?? 0).toLocaleString()}</p>
 
       <p>🏛 Sàn: {stock.market}</p>
 

@@ -1,3 +1,6 @@
+import AIEngine from "../app/services/AIEngine";
+
+
 export default function StockList({
   stocks,
   onDelete,
@@ -54,6 +57,14 @@ export default function StockList({
               ((stock.currentPrice - stock.buyPrice) /
                 stock.buyPrice) *
               100;
+const ai = AIEngine.analyze({
+  symbol: stock.code,
+  price: stock.currentPrice,
+  roe: 95,
+  growth: 90,
+  pe: 8,
+  debt: 4,
+});
 
             return (
               <tr key={stock.code + index}>
@@ -127,6 +138,17 @@ export default function StockList({
                     🗑️ Xóa
                   </button>
                 </td>
+                <td
+  style={{
+    padding: "10px",
+    fontWeight: "bold",
+    color: "#2563eb",
+    textAlign: "center",
+  }}
+>
+  {ai.score ? ai.score : "-"}
+</td>
+
               </tr>
             );
           })}

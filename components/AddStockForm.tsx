@@ -1,3 +1,5 @@
+import { AIService } from "../app/services/AIService";
+
 import { useState } from "react";
 export default function AddStockForm({
   onAdd,
@@ -56,14 +58,24 @@ onChange={(e) => setCode(e.target.value)}
 
 
         <button
-        onClick={() =>
+       onClick={() => {
+  const ai = AIService.analyze(code.toUpperCase());
+
   onAdd({
-    code,
+    code: code.toUpperCase(),
     quantity: Number(quantity),
     buyPrice: Number(BuyPrice),
     currentPrice: Number(CurrentPrice),
-  })
-}
+
+    aiScore: ai.total,
+    aiFinancial: ai.financial,
+    aiGrowth: ai.growth,
+    aiValuation: ai.valuation,
+    aiRisk: ai.risk,
+    aiComment: ai.comment,
+  });
+}}
+
           style={{
             background: "#16a34a",
             color: "white",

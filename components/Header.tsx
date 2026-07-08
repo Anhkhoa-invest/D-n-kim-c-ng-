@@ -1,7 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
+
 export default function Header() {
-  const now = new Date();
+  const [now, setNow] = useState<Date | null>(null);
+
+useEffect(() => {
+  setNow(new Date());
+}, []);
+
 
   return (
     <div
@@ -51,7 +59,9 @@ export default function Header() {
           marginBottom: "4px",
         }}
       >
-        🕒 {now.toLocaleTimeString("vi-VN")}
+        
+🕒 {now ? now.toLocaleTimeString("vi-VN") : "--:--:--"}
+
       </p>
 
       <p
@@ -61,7 +71,8 @@ export default function Header() {
           marginBottom: "10px",
         }}
       >
-        📅 {now.toLocaleDateString("vi-VN")}
+      📅 {now ? now.toLocaleDateString("vi-VN") : "--/--/----"}
+
       </p>
 
       <hr />

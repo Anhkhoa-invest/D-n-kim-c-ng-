@@ -1,11 +1,21 @@
 import { PortfolioItem } from "../types/portfolio";
+
 export const marketData = {
   vnIndex: 1400,
 
   vn30: 0.82,
   hnx: 0.35,
   upcom: 0.21,
+
+  codes: [
+    "VNINDEX",
+    "VN30",
+    "HNX",
+    "UPCOM",
+  ],
 };
+
+
 
 export const portfolio: PortfolioItem[] = [
   {
@@ -13,12 +23,14 @@ export const portfolio: PortfolioItem[] = [
     quantity: 11,
     buyPrice: 19.8,
     currentPrice: 22.7,
+    aiScore: 94,
   },
   {
     code: "HHV",
     quantity: 19,
     buyPrice: 13.1,
     currentPrice: 14.65,
+    aiScore: 88,
   },
 ];
 
