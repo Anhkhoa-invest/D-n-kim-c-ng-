@@ -2,7 +2,6 @@ export interface AIDecision {
   recommendation: "BUY" | "HOLD" | "SELL";
   confidence: number;
 }
-
 export class AIDecisionService {
   static decide(score: number): AIDecision {
     if (score >= 90) {

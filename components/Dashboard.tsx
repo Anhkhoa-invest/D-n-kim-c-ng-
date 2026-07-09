@@ -188,15 +188,10 @@ useEffect(() => {
             <WatchlistCard />
 <NotificationCard />
 <AIAnalysisCard
-    
-
-
-  symbol="MBB"
-  price={22.7}
-  roe={95}
-  growth={93}
-  pe={8}
-  debt={4}
+    score={94}
+    recommendation="BUY"
+    confidence={95}
+    comment="Ngân hàng chất lượng cao, ROE tốt, định giá hợp lý."
 />
           </div>
           <AIAssistant />

@@ -7,4 +7,3 @@ class MarketRepository {
 }
 
 export default new MarketRepository();
-

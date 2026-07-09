@@ -1,65 +1,53 @@
-"use client";
-import MarketDataService from "../app/services/MarketDataService";
-
-import AIEngine from "../app/services/AIEngine";
-import StockRepository from "../app/services/StockRepository";
-
-
-interface Props {
-    symbol: string;
-    price: number;
-    roe: number;
-    growth: number;
-    pe: number;
-    debt: number;
-}
+import AIFacade from "@/app/services/AIFacade";
+type Props = {
+  score: number;
+  recommendation: string;
+  confidence: number;
+  comment: string;
+};
 
 export default function AIAnalysisCard({
-    symbol,
-    price,
-    roe,
-    growth,
-    pe,
-    debt,
+  score,
+  recommendation,
+  confidence,
+  comment,
 }: Props) {
-
-const stock = StockRepository.get(symbol);
-
-
-const result = AIEngine.analyze(stock);
-
-
-
+  const color =
+    recommendation === "BUY"
+      ? "text-green-600"
+      : recommendation === "HOLD"
+      ? "text-yellow-500"
+      : "text-red-600";
 
   return (
-    <div className="rounded-xl border p-5 bg-slate-900 text-white">
-      <h2 className="text-xl font-bold mb-3">
-        🤖 AI Phân tích doanh nghiệp
-      </h2>
+    <div className="rounded-xl border p-4 shadow-sm bg-white">
+      <h3 className="text-lg font-bold mb-3">
+        🤖 AI Investment Analysis
+      </h3>
 
       <div className="space-y-2">
+        <div>
+          <strong>AI Score:</strong> {score}
+        </div>
 
-        <p>Điểm AI: <b>{result.score} / 100</b></p>
-
-
-        <p>
-          Khuyến nghị:
-          <span className="text-green-400 ml-2">
-            {result.recommendation.action}
+        <div>
+          <strong>Recommendation:</strong>{" "}
+          <span className={color}>
+            {recommendation}
           </span>
-        </p>
+        </div>
 
-        <p>
-          Độ tin cậy:
-          <b> {result.recommendation.confidence}%</b>
-        </p>
+        <div>
+          <strong>Confidence:</strong> {confidence}%
+        </div>
 
-        <hr />
-
-        <p>{result.explanation}</p>
-
+        <div>
+          <strong>Explanation:</strong>
+          <p className="mt-1 text-gray-600">
+            {comment}
+          </p>
+        </div>
       </div>
-
     </div>
   );
 }

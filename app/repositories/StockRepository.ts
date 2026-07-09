@@ -1,8 +1,7 @@
 import { StockProfile } from "../models/StockProfile";
 
-export class StockRepository {
+export default class StockRepository {
   private static instance: StockRepository;
-
   private stocks: StockProfile[] = [];
 
   private constructor() {}
@@ -11,7 +10,6 @@ export class StockRepository {
     if (!StockRepository.instance) {
       StockRepository.instance = new StockRepository();
     }
-
     return StockRepository.instance;
   }
 
@@ -36,4 +34,15 @@ export class StockRepository {
       this.stocks.push(stock);
     }
   }
+
+  remove(symbol: string): void {
+    this.stocks = this.stocks.filter(
+      (stock) => stock.symbol !== symbol
+    );
+  }
+
+  clear(): void {
+    this.stocks = [];
+  }
 }
+

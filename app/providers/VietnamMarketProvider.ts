@@ -1,5 +1,4 @@
 import FireAntApi from "./FireAntApi";
-
 export interface StockPrice {
   symbol: string;
   price: number;
@@ -7,30 +6,23 @@ export interface StockPrice {
   percentChange: number;
   updatedAt: Date;
 }
-
 class VietnamMarketProvider {
-  async getStockPrice(symbol: string): Promise<StockPrice> {
-    try {
-      // Tạm thời trả dữ liệu mẫu
-      return {
-        symbol: symbol.toUpperCase(),
-        price: 0,
-        change: 0,
-        percentChange: 0,
-        updatedAt: new Date(),
-      };
-    } catch (error) {
-      console.error("VietnamMarketProvider Error:", error);
+    async getStockPrice(symbol: string): Promise<StockPrice> {
+        try {
+            const data = await FireAntApi.getQuote(symbol);
 
-      return {
-        symbol: symbol.toUpperCase(),
-        price: 0,
-        change: 0,
-        percentChange: 0,
-        updatedAt: new Date(),
-      };
+            return {
+                symbol: data.symbol ?? symbol.toUpperCase(),
+                price: data.price ?? 0,
+                change: data.change ?? 0,
+                percentChange: data.percentChange ?? 0,
+                updatedAt: new Date(),
+            };
+        } catch (error) {
+            console.error("VietnamMarketProvider Error:", error);
+            throw error;
+        }
     }
-  }
 }
 
 export default new VietnamMarketProvider();

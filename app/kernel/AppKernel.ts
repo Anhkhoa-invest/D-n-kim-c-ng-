@@ -4,18 +4,11 @@ import { PortfolioModule } from "../services/PortfolioModule";
 import { AIModule } from "../services/AIModule";
 import { NotificationModule } from "../services/NotificationModule";
 import { SecurityModule } from "../services/SecurityModule";
-
-
-
 import { ServiceContainer } from "./ServiceContainer";
 import { ModuleRegistry } from "./ModuleRegistry";
 import { EventBus } from "./events";
 import { Logger } from "./Logger";
 import { HealthMonitor } from "./HealthMonitor";
-
-
-
-
 export class AppKernel {
   private readonly container = new ServiceContainer();
 private readonly modules = new ModuleRegistry();

@@ -1,7 +1,18 @@
-import StockRepository from "./StockRepository";
+import MarketRepository from "../repositories/MarketRepository";
 
-export default class MarketDataService {
-  static getStock(symbol: string) {
-    return StockRepository.get(symbol);
-  }
+class MarketDataService {
+    async getStockPrice(symbol: string) {
+        return await MarketRepository.getStockPrice(symbol);
+    }
+
+    async getPrices(symbols: string[]) {
+        return Promise.all(
+            symbols.map(symbol =>
+                this.getStockPrice(symbol)
+            )
+        );
+    }
 }
+
+export default new MarketDataService();
+

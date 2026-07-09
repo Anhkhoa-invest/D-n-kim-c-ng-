@@ -1,14 +1,9 @@
 import AlertService from "./AlertService";
 import { Alert } from "./Alert";
-
 export default class AlertEngine {
-
     static run(): Alert[] {
-
         const alerts = AlertService.getAll();
-
         return alerts.filter(alert => {
-
             if (!alert.enabled) return false;
 
             switch (alert.type) {

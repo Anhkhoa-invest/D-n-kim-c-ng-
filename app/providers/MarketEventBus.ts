@@ -11,6 +11,17 @@ class MarketEventBus {
     };
   }
 
+clear() {
+    this.listeners = [];
+}
+
+count() {
+    return this.listeners.length;
+}
+
+hasListeners() {
+    return this.listeners.length > 0;
+}
   emit() {
     this.listeners.forEach(listener => listener());
   }
