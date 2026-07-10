@@ -1,22 +1,26 @@
 import type { WatchlistItem } from "./WatchlistItem";
+import WatchlistRepository from "./WatchlistRepository";
 
 export default class WatchlistService {
 
-    private static items: WatchlistItem[] = [];
-
     static getAll() {
-        return this.items;
+        return WatchlistRepository.load();
     }
 
     static add(item: WatchlistItem) {
-        this.items.push(item);
+        WatchlistRepository.add(item);
     }
 
     static remove(symbol: string) {
-        this.items =
-            this.items.filter(
-                i => i.symbol !== symbol
-            );
+        WatchlistRepository.remove(symbol);
+    }
+
+    static find(symbol: string) {
+        return WatchlistRepository.find(symbol);
+    }
+
+    static clear() {
+        WatchlistRepository.clear();
     }
 
 }

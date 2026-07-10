@@ -1,16 +1,23 @@
+import DatabaseRepository from "./DatabaseRepository";
+
 export default class DatabaseService {
-    static async save(key: string, data: unknown) {
-        console.log("Save:", key, data);
-        return true;
+
+    static save(table: string, data: Record<string, unknown>) {
+
+        DatabaseRepository.save(table, data);
+
     }
 
-    static async load(key: string) {
-        console.log("Load:", key);
-        return null;
+    static all(table: string) {
+
+        return DatabaseRepository.all(table);
+
     }
 
-    static async remove(key: string) {
-        console.log("Remove:", key);
-        return true;
+    static clear(table: string) {
+
+        DatabaseRepository.clear(table);
+
     }
+
 }

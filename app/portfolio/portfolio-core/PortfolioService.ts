@@ -11,4 +11,16 @@ export default class PortfolioService {
     return PortfolioRepository.save(portfolio);
   }
 
+  static update(portfolio: Portfolio) {
+    return PortfolioRepository.update(portfolio);
+  }
+
+  static delete(id: string) {
+    return PortfolioRepository.delete(id);
+  }
+
+  static findById(id: string) {
+    return PortfolioRepository.findById(id);
+  }
+
 }

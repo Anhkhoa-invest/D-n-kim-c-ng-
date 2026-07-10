@@ -1,4 +1,14 @@
+export default interface PortfolioDividend {
 
-export default class PortfolioDividend {
+    yearlyIncome: number;
+
+    monthlyAverage: number;
+
+    dividendYield: number;
+
+    nextPayment: Date | null;
+
+    upcomingDividends: number;
 
 }
+
