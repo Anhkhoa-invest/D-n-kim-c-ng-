@@ -2,6 +2,9 @@
 import { useDashboardRealtime } from "../app/hooks/useDashboardRealtime";
 import AINewsWidgetService from "../app/services/AINewsWidgetService";
 import AINewsCard from "./AINewsCard";
+import DashboardExplainCard from "./DashboardExplainCard";
+import DashboardReportCard from "./DashboardReportCard";
+import RealtimeDashboard from "./RealtimeDashboard";
 
 import { RealtimeEngine } from "../app/services/RealtimeEngine";
 import AIAnalysisCard from "./AIAnalysisCard";
@@ -25,6 +28,7 @@ import AddStockForm from "./AddStockForm";
 import AIAssistant from "./AIAssistant";
 import { aiRegistry } from "../app/ai/AIBootstrap";
 import { useRealtimeMarket } from "../app/hooks/useRealtimeMarket";
+import DashboardHistoryCard from "./DashboardHistoryCard";
 
 
 
@@ -217,6 +221,13 @@ useEffect(() => {
     confidence={95}
     comment="Ngân hàng chất lượng cao, ROE tốt, định giá hợp lý."
 />
+<DashboardExplainCard />
+<DashboardReportCard />
+<DashboardHistoryCard />
+
+<RealtimeDashboard stocks={stocks} />
+
+
           </div>
           <AIAssistant />
           <AddStockButton
