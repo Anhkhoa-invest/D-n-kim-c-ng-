@@ -1,5 +1,7 @@
 "use client";
 import { useDashboardRealtime } from "../app/hooks/useDashboardRealtime";
+import AINewsWidgetService from "../app/services/AINewsWidgetService";
+import AINewsCard from "./AINewsCard";
 
 import { RealtimeEngine } from "../app/services/RealtimeEngine";
 import AIAnalysisCard from "./AIAnalysisCard";
@@ -34,6 +36,17 @@ console.log("Realtime Quotes:", quotes);
 
   const [search, setSearch] = useState("");
   const [analysis, setAnalysis] = useState<any>(null);
+  const [news, setNews] = useState<any[]>([]);
+useEffect(() => {
+    const loadNews = async () => {
+        const data = await AINewsWidgetService.loadWidget();
+        setNews(data);
+    };
+
+    loadNews();
+}, []);
+
+
   const [showForm, setShowForm] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
@@ -172,6 +185,17 @@ useEffect(() => {
           />
 
           <SummaryCard />
+          <div style={{ marginTop: 20 }}>
+    <h2>📰 AI News</h2>
+
+    {news.map((item, index) => (
+        <AINewsCard
+            key={index}
+            news={item}
+        />
+    ))}
+</div>
+
 
 
           <div

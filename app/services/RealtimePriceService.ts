@@ -1,4 +1,5 @@
-import { MarketDataGateway } from "./MarketDataGateway";
+import MarketDataGateway from "./MarketDataGateway";
+
 export interface PriceData {
   code: string;
   price: number;
@@ -6,12 +7,23 @@ export interface PriceData {
   percent: number;
   updatedAt: string;
 }
+
 export class RealtimePriceService {
+
   static async getPrice(code: string): Promise<PriceData> {
-    // Sprint 9:
-    // tạm trả dữ liệu giả
-    // Sprint 10 sẽ thay bằng API thật 
-const provider = MarketDataGateway.getProvider();
-return await provider.getQuote(code);
+
+    const provider = MarketDataGateway.getProvider();
+
+    const quote = await provider.getQuote(code);
+
+    return {
+      code: quote.symbol,
+      price: quote.price,
+      change: quote.change,
+      percent: quote.percent,
+      updatedAt: quote.updatedAt.toLocaleTimeString(),
+    };
+
   }
+
 }

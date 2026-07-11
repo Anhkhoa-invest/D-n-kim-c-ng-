@@ -1,13 +1,14 @@
-export interface StockQuote {
-  code: string;
+
+export interface MarketQuote {
+  symbol: string;
   price: number;
   change: number;
   percent: number;
   volume: number;
-  updatedAt: string;
+  updatedAt: Date;
 }
 
 export interface IMarketDataProvider {
-  getQuote(code: string): Promise<StockQuote>;
+  getQuote(symbol: string): Promise<MarketQuote>;
 }
 

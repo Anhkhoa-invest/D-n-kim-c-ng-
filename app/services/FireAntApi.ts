@@ -1,4 +1,5 @@
-import { ApiClient } from "./ApiClient";
+import ApiClient from "./ApiClient";
+
 import ApiConfig from "./ApiConfig";
 
 export class FireAntApi {

@@ -1,4 +1,4 @@
-import { MarketDataGateway } from "./MarketDataGateway";
+import MarketDataGateway from "./MarketDataGateway";
 import { SourceManager } from "./SourceManager";
 
 

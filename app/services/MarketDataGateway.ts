@@ -3,7 +3,7 @@ import MockMarketProvider from "./MockMarketProvider";
 import FireAntProvider from "./FireAntProvider";
 import ApiConfig from "./ApiConfig";
 
-export class MarketDataGateway {
+export default class MarketDataGateway {
 
   private static provider: IMarketDataProvider =
     ApiConfig.USE_REAL_API

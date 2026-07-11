@@ -1,11 +1,39 @@
-export class ApiClient {
-  static async get(url: string) {
-    const res = await fetch(url);
+export default class ApiClient {
 
-    if (!res.ok) {
-      throw new Error("API Error");
+  static async get<T>(url: string): Promise<T> {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
     }
 
-    return res.json();
+    return await response.json();
   }
+
+  static async post<T>(
+    url: string,
+    body: unknown
+  ): Promise<T> {
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    return await response.json();
+  }
+
 }
+
