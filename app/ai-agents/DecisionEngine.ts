@@ -1,3 +1,11 @@
+export interface DecisionInput {
+    market?: unknown;
+    news?: unknown;
+    portfolio?: unknown;
+    financial?: unknown;
+    memory?: unknown;
+}
+
 export interface DecisionResult {
     action: "BUY" | "SELL" | "HOLD";
     confidence: number;
@@ -7,7 +15,7 @@ export interface DecisionResult {
 
 export class DecisionEngine {
 
-    evaluate(data: any): DecisionResult {
+    evaluate(data: DecisionInput): DecisionResult {
 
         const confidence = 0.8;
 

@@ -6,6 +6,6 @@ export interface IAIEngine {
   readonly name: string;
   readonly version: string;
   readonly description?: string;
-getName(): string;
+
   analyze(context: AIContext): Promise<AIResult>;
 }

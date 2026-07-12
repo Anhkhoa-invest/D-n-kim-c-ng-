@@ -17,17 +17,16 @@ export class AgentManager {
       throw new Error(`Agent ${name} not found`);
     }
 
-    agent.start();
+   agent.start();
 
-    const result = await agent.execute(input);
-
+try {
+    return await agent.execute(input);
+} finally {
     agent.stop();
-
-    return result;
+}
   }
-
   agents() {
     return this.registry.list();
   }
-}
 
+}

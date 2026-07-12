@@ -1,4 +1,5 @@
 export interface MarketData {
+
   symbol: string;
   name: string;
 
@@ -17,4 +18,5 @@ export interface MarketData {
   market: string;
 
   updatedAt: Date;
+
 }
