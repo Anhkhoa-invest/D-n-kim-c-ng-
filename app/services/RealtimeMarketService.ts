@@ -1,22 +1,40 @@
-import RealtimeScheduler from "./RealtimeScheduler";
+import { RealtimePriceService } from "./RealtimePriceService";
+
+import WatchlistService from "./WatchlistService";
 import RealtimeEventBus from "./RealtimeEventBus";
 
-type EventHandler = (payload?: unknown) => void;
-
 export default class RealtimeMarketService {
-    static start(symbols: string[]) {
-        RealtimeScheduler.start(symbols);
-    }
+  private static timer: NodeJS.Timeout | null = null;
 
-    static stop() {
-        RealtimeScheduler.stop();
-    }
+  static start() {
+    if (this.timer) return;
 
-    static subscribe(event: string, handler: EventHandler) {
-        RealtimeEventBus.subscribe(event, handler);
-    }
+    const update = async () => {
+      const symbols = WatchlistService.getAll();
 
-    static unsubscribe(event: string, handler: EventHandler) {
-        RealtimeEventBus.unsubscribe(event, handler);
-    }
+      const quotes = await Promise.all(
+        symbols.map((code) =>
+          RealtimePriceService.getPrice(code)
+        )
+      );
+
+      RealtimeEventBus.emit(
+        "DASHBOARD_UPDATED",
+        quotes
+      );
+    };
+
+    update();
+
+    this.timer = setInterval(update, 5000);
+  }
+
+  static stop() {
+    if (!this.timer) return;
+
+    clearInterval(this.timer);
+
+    this.timer = null;
+  }
 }
+

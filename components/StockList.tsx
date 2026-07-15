@@ -59,7 +59,7 @@ export default function StockList({
               100;
 const ai = AIEngine.analyze({
   symbol: stock.code,
-  price: stock.currentPrice,
+  currentPrice: stock.currentPrice,
   roe: 95,
   growth: 90,
   pe: 8,

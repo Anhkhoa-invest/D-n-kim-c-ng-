@@ -20,11 +20,31 @@ export default class FundamentalAgent extends BaseAgent {
             92,
             95,
             `Fundamental analysis completed for ${symbol}`,
-            {
-                roe: 24.8,
-                pe: 11.5,
-                pb: 1.8,
-            }
+           {
+    revenueGrowth: 15.8,
+
+    epsGrowth: 18.4,
+
+    profitGrowth: 21.2,
+
+    bookValueGrowth: 12.6,
+
+    cashFlowGrowth: 17.3,
+
+    debtQuality: "GOOD",
+
+    financialHealth: "EXCELLENT",
+
+    businessCycle: "EXPANSION",
+
+    profitability: "HIGH",
+
+    stability: "HIGH",
+
+    score: 95
+}
+
+
         );
 
     }

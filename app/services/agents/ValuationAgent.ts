@@ -10,12 +10,27 @@ export default class ValuationAgent extends BaseAgent {
             93,
             95,
             `Valuation analysis completed for ${symbol}`,
-            {
-                pe: 11.8,
-                pb: 1.6,
-                intrinsicValue: 42500,
-                marginOfSafety: 18.5,
-            }
+           {
+    pe: 11.8,
+    pb: 1.6,
+
+    marketPrice: 34800,
+
+    intrinsicValue: 42500,
+
+    upside: 22.13,
+
+    marginOfSafety: 18.5,
+
+    valuation:
+        "UNDERVALUED",
+
+    fairValue: true,
+
+    score: 93
+}
+
+
         );
 
     }

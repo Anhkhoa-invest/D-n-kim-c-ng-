@@ -21,6 +21,8 @@ export interface AIContext {
   roe?: number;
   roa?: number;
   debtToEquity?: number;
+  operatingMargin?: number;
+
   
 
   // Tăng trưởng

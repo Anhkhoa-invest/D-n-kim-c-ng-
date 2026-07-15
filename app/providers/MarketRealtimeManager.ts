@@ -1,21 +1,28 @@
-import RealtimeProvider from "../repositories/RealtimRepository";
-
+import MarketDataGateway from "./MarketDataGateway";
 
 class MarketRealtimeManager {
     private isRunning = false;
+    private timer: NodeJS.Timeout | null = null;
 
     start(callback: () => void) {
         if (this.isRunning) return;
 
         this.isRunning = true;
-        RealtimeProvider.start(callback);
+
+        this.timer = setInterval(() => {
+            callback();
+        }, 5000);
     }
 
     stop() {
         if (!this.isRunning) return;
 
         this.isRunning = false;
-        RealtimeProvider.stop();
+
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
     }
 
     isStarted() {

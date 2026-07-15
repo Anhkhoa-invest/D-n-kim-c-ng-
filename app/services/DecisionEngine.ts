@@ -1,13 +1,20 @@
 import DecisionExplainService from "./DecisionExplainService";
 import InvestmentThesisService from "./InvestmentThesisService";
-
-
-
 export interface DecisionResult {
-  action: "BUY" | "WATCH" | "SELL";
-  reason: string;
-  thesis: string;
+    action:
+        | "STRONG_BUY"
+        | "BUY"
+        | "WATCH"
+        | "REDUCE"
+        | "SELL";
+
+    confidence: number;
+
+    reason: string;
+
+    thesis: string;
 }
+
 
 export interface DecisionContext {
     score: number;
@@ -35,8 +42,7 @@ const thesis = InvestmentThesisService.generate(
     context.debt,
     context.growth
 );
-
-   if (
+if (
     context.score >= 85 &&
     context.roe >= 20 &&
     context.pe <= 15 &&
@@ -44,7 +50,21 @@ const thesis = InvestmentThesisService.generate(
     context.growth >= 20
 ) {
     return {
+        action: "STRONG_BUY",
+        confidence: 92,
+        reason: explanation,
+        thesis,
+    };
+}
+
+if (
+    context.score >= 80 &&
+    context.roe >= 18 &&
+    context.debt <= 50
+) {
+    return {
         action: "BUY",
+        confidence: 82,
         reason: explanation,
         thesis,
     };
@@ -57,6 +77,7 @@ if (
 ) {
     return {
         action: "WATCH",
+        confidence: 70,
         reason: explanation,
         thesis,
     };
@@ -64,12 +85,10 @@ if (
 
 return {
     action: "SELL",
+    confidence: 35,
     reason: explanation,
     thesis,
 };
-
-
-
   }
 
 }

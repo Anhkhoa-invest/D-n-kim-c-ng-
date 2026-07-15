@@ -1,15 +1,25 @@
+import { AIContext } from "../ai/core/AIContext";
+
 export class AIExplainService {
-  static explain(score: number) {
-    if (score >= 90) {
-      return "Doanh nghiệp chất lượng cao, tăng trưởng tốt, định giá hợp lý, rủi ro thấp.";
-    }
+  explain(context: AIContext): string[] {
+    const reasons: string[] = [];
 
-    if (score >= 75) {
-      return "Doanh nghiệp khá tốt nhưng cần theo dõi thêm kết quả kinh doanh và dòng tiền.";
-    }
+    if ((context.roe ?? 0) >= 20)
+      reasons.push("ROE cao - doanh nghiệp sử dụng vốn hiệu quả.");
 
-    return "Điểm AI thấp, nên quan sát thêm trước khi đầu tư.";
+    if ((context.pe ?? 999) <= 12)
+      reasons.push("P/E hấp dẫn - cổ phiếu đang được định giá hợp lý.");
+
+    if ((context.profitGrowth ?? 0) >= 15)
+      reasons.push("Lợi nhuận tăng trưởng tốt.");
+
+    if ((context.debtToEquity ?? 999) < 1)
+      reasons.push("Nợ thấp - cấu trúc tài chính an toàn.");
+
+    if ((context.dividendYield ?? 0) >= 4)
+      reasons.push("Cổ tức ổn định.");
+
+    return reasons;
   }
 }
-export default AIExplainService;
 

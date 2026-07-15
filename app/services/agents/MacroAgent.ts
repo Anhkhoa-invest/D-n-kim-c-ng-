@@ -10,12 +10,19 @@ export default class MacroAgent extends BaseAgent {
             90,
             92,
             `Macro analysis completed for ${symbol}`,
-            {
-                interestRate: "Stable",
-                inflation: 3.2,
-                usdIndex: 101.5,
-                marketTrend: "Bullish",
-            }
+           {
+    interestRate: "Stable",
+    inflation: 3.2,
+    usdIndex: 101.5,
+    marketTrend: "Bullish",
+
+    fedPolicy: "Neutral",
+    exchangeRate: "Stable",
+    oilPriceTrend: "Sideway",
+    bondYield: 4.2,
+    macroScore: 90
+}
+
         );
 
     }

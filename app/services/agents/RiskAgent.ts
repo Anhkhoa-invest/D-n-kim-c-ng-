@@ -18,11 +18,27 @@ export default class RiskAgent extends BaseAgent {
             90,
             `Risk analysis completed for ${symbol}`,
             {
-                beta: 0.82,
-                volatility: "Low",
-                bankruptcyRisk: "Very Low",
-                liquidity: "High",
-            }
+    riskScore: 22,
+
+    level: "LOW",
+
+    volatility: 18.6,
+
+    beta: 0.91,
+
+    maxDrawdown: 12.4,
+
+    liquidityRisk: "LOW",
+
+    leverageRisk: "LOW",
+
+    businessRisk: "LOW",
+
+    warning: [],
+
+    confidence: 93
+}
+
         );
 
     }

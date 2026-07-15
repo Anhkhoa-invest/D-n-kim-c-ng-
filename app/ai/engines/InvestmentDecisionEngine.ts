@@ -1,5 +1,9 @@
 import { IAIEngine } from "../contracts/IAIEngine";
 import { AIScoreCalculator } from "./AIScoreCalculator";
+import { AIFinancialAnalyzer } from "../AIFinancialAnalyzer";
+import { TemGrowthAnalyzer } from "../GrowthAnaLyzerTem";
+
+import { AIRiskAnalyzer } from "../AIRiskAnalyzer";
 
 export class InvestmentDecisionEngine implements IAIEngine {
   readonly id = "investment-decision";

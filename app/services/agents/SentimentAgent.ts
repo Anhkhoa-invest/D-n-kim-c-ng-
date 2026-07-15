@@ -17,11 +17,27 @@ export default class SentimentAgent extends BaseAgent {
             89,
             90,
             `Sentiment analysis completed for ${symbol}`,
-            {
-                fearGreed: 68,
-                socialScore: 91,
-                sentiment: "Bullish",
-            }
+            
+{
+    sentiment: "BULLISH",
+
+    sentimentScore: 91,
+
+    positiveNews: 18,
+
+    negativeNews: 3,
+
+    neutralNews: 9,
+
+    socialScore: 88,
+
+    newsScore: 92,
+
+    confidence: 90,
+
+    reason: "Positive earnings and strong money inflow."
+}
+
         );
 
     }

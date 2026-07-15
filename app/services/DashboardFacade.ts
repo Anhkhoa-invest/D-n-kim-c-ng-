@@ -6,10 +6,10 @@ import DashboardExplainBridge from "./DashboardExplainBridge";
 export default class DashboardFacade {
   static analyze(portfolio: any[]) {
     return {
-      summary: DashboardSummaryBridge.analyze(portfolio),
-      decision: DashboardDecisionBridge.analyze(portfolio),
-      
-    };
+    summary: DashboardSummaryBridge.analyze(portfolio),
+
+    decision: DashboardDecisionBridge.analyze(portfolio),
+};
   }
 }
 

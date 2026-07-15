@@ -1,5 +1,6 @@
 export default class ApiConfig {
-  static readonly FIREANT_BASE = "https://api.fireant.vn";
+  static readonly FINNHUB_BASE = "https://finnhub.io/api/v1";
+
 
   static readonly TIMEOUT = 10000;
 

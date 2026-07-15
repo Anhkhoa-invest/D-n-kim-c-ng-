@@ -22,4 +22,18 @@ export default abstract class BaseAgent implements IAgent {
 
     }
 
+    protected failure(
+        explanation: string,
+        metadata?: Record<string, any>
+    ): AgentResult {
+
+        return {
+            score: 0,
+            confidence: 0,
+            explanation,
+            metadata,
+        };
+
+    }
+
 }

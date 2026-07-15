@@ -6,12 +6,14 @@ import DecisionEngine from "./DecisionEngine";
 
 import type { AnalysisResult } from "../models/AnalysisResult";
 import VietnamMarketProvider from "../providers/VietnamMarketProvider";
+const marketProvider = new VietnamMarketProvider();
 
 class MarketEngine {
 
     async getStockPrice(symbol: string) {
-        return VietnamMarketProvider.getStockPrice(symbol);
-    }
+    return marketProvider.getStockPrice(symbol);
+}
+
 
     async analyze(symbol: string): Promise<AnalysisResult> {
 

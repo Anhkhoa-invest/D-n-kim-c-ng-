@@ -8,6 +8,15 @@ export default class MarginOfSafetyEngine {
     intrinsicValue: number,
     marketPrice: number
   ): MarginResult {
+if (intrinsicValue <= 0) {
+    return {
+        margin: 0,
+        rating: "Poor",
+    };
+}
+
+// Benjamin Graham Margin of Safety
+// ((Intrinsic Value - Market Price) / Intrinsic Value) * 100
 
     const margin =
       ((intrinsicValue - marketPrice) / intrinsicValue) * 100;
@@ -23,10 +32,11 @@ export default class MarginOfSafetyEngine {
     } else {
       rating = "Poor";
     }
+return {
+    margin: Number(margin.toFixed(2)),
+    rating,
+};
 
-    return {
-      margin: Number(margin.toFixed(2)),
-      rating,
-    };
+    
   }
 }

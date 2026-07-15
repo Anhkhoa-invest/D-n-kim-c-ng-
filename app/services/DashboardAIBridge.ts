@@ -1,23 +1,58 @@
-import AIDashboardService from "./AIDashboardService";
+import AIIntegrationService from "./AIIntegrationService";
+
+export interface DashboardAIResult {
+  symbol: string;
+
+  score: number;
+
+  recommendation: string;
+
+  confidence: number;
+
+  explain: string[];
+
+  financial: any;
+
+  diamond: any;
+
+  decision: any;
+
+  version: string;
+}
 
 export default class DashboardAIBridge {
-  static async get(symbol: string) {
-    const data: any = await AIDashboardService.analyze(symbol);
+  static async load(
+    symbol: string
+  ): Promise<DashboardAIResult> {
 
+    const ai =
+      await AIIntegrationService.analyze(symbol);
 
     return {
       symbol,
-      title: data.title,
-      score: data.score,
-      recommendation: data.recommendation,
-      quality: data.quality,
-      risk: data.risk,
-      growth: data.growth,
-      dividend: data.dividend,
-      thesis: data.thesis,
-      reason: data.reason,
-      report: data.report,
+
+      score: ai.diamond.score,
+
+      recommendation:
+        ai.decision.recommendation,
+
+      confidence:
+        ai.confidence,
+
+      explain:
+        ai.explain,
+
+      financial:
+        ai.financial,
+
+      diamond:
+        ai.diamond,
+
+      decision:
+        ai.decision,
+
+      version:
+        ai.version,
     };
   }
 }
-

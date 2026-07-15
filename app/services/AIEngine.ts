@@ -1,6 +1,7 @@
 import type { AIContext } from "./AIContext";
 import AIScoringService from "./AIScoringService";
-import AIExplainService from "./AIExplainService";
+import { AIExplainService } from "./AIExplainService";
+
 import AIRecommendationService from "./AIRecommendationService";
 
 export class AIEngine {
@@ -13,11 +14,14 @@ export class AIEngine {
       risk: context.debt ? Math.max(100 - context.debt, 0) : 70,
     });
 
-    return {
-      score,
-      explanation: AIExplainService.explain(score),
-      recommendation: AIRecommendationService.recommend(score),
-    };
+    const explainService = new AIExplainService();
+
+return {
+    score,
+    explanation: explainService.explain(context),
+    recommendation: AIRecommendationService.recommend(score),
+};
+
   }
 }
 

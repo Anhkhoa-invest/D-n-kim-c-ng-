@@ -1,10 +1,12 @@
 import { AIContext } from "./AIContext";
 import { AIResult } from "./AIResultTemp";
 
-export interface AIEngine {
-  readonly name: string;
-  readonly version: string;
+export interface IAIEngine {
+    readonly id: string;
+    readonly name: string;
+    readonly version: string;
+    readonly description: string;
 
-  analyze(context: AIContext): Promise<AIResult>;
+    analyze(context: AIContext): Promise<AIResult>;
 }
 

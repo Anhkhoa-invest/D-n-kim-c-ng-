@@ -1,6 +1,6 @@
 export interface AIContext {
   symbol: string;
-  price: number;
+  currentPrice: number;
   pe?: number;
   pb?: number;
   roe?: number;

@@ -1,16 +1,38 @@
+import AIIntegrationService from "./AIIntegrationService";
 
-import AIFacade from "./AIFacade";
+export interface DashboardAIData {
+    symbol: string;
 
-class DashboardAIService {
+    score: number;
 
-    getTopAI(symbols: string[]) {
-        return symbols.map(symbol => ({
-            symbol,
-            ai: AIFacade.analyze(symbol)
-        }));
+    rating: string;
+
+    recommendation: string;
+
+    confidence: number;
+
+    marketStatus: string;
+}
+
+export default class DashboardAIService {
+
+    static async load(symbol: string): Promise<DashboardAIData> {
+const result = await AIIntegrationService.analyze(symbol);
+
+       return {
+    symbol,
+
+    score: result.diamond.score,
+
+    rating: result.diamond.rating,
+
+    recommendation: result.diamond.recommendation,
+
+    confidence: result.diamond.confidence,
+
+    marketStatus: "READY"
+};
+
     }
 
 }
-
-export default new DashboardAIService();
-

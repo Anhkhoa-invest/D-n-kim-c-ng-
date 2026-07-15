@@ -10,12 +10,31 @@ export default class QualityAgent extends BaseAgent {
             94,
             96,
             `Quality analysis completed for ${symbol}`,
-            {
-                roe: 24.8,
-                roa: 11.6,
-                debtEquity: 0.32,
-                quality: "Excellent",
-            }
+           {
+    roeQuality: 94,
+
+    roaQuality: 90,
+
+    grossMargin: 42.5,
+
+    operatingMargin: 21.8,
+
+    netMargin: 18.2,
+
+    cashFlowQuality: 91,
+
+    earningsQuality: 93,
+
+    managementQuality: 90,
+
+    moat: "WIDE",
+
+    quality: "EXCELLENT",
+
+    score: 94
+}
+
+
         );
 
     }

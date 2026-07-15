@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { AIDecisionService } from "../app/services/AIDecisionService";
+import AIDecisionService from "../app/services/AIDecisionService";
+
 import { AIExplainService } from "../app/services/AIExplainService";
 import { AIService } from "../app/services/AIService";
 import { OpenAIService } from "../app/services/OpenAIService";
@@ -7,11 +8,16 @@ import { OpenAIService } from "../app/services/OpenAIService";
 type Props = {
   code?: string;
 };
-
 export default function AIAssistant({ code = "MBB" }: Props) {
+
   const ai = AIService.analyze(code);
-  const decision = AIDecisionService.decide(ai.total);
-  const explanation = AIExplainService.explain(ai.total);
+
+  const decision =
+    AIDecisionService.decide(ai.total);
+
+  const explanation = ai.comment;
+
+
 
   const [answer, setAnswer] = useState("");
 
@@ -22,6 +28,8 @@ export default function AIAssistant({ code = "MBB" }: Props) {
 
     setAnswer(res.answer);
   };
+
+
 
   return (
     <div

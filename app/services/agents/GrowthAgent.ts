@@ -10,12 +10,27 @@ export default class GrowthAgent extends BaseAgent {
             92,
             94,
             `Growth analysis completed for ${symbol}`,
-            {
-                revenueGrowth: 18.4,
-                earningsGrowth: 21.6,
-                roeGrowth: 11.3,
-                outlook: "Strong",
-            }
+           {
+    revenueGrowth: 18.5,
+
+    profitGrowth: 21.3,
+
+    epsGrowth: 19.8,
+
+    cashflowGrowth: 15.2,
+
+    bookValueGrowth: 11.6,
+
+    cagr5Y: 17.4,
+
+    growthStage: "HIGH",
+
+    sustainableGrowth: true,
+
+    score: 92
+}
+
+
         );
 
     }
